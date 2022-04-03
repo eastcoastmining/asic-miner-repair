@@ -14,16 +14,18 @@ fi
 
 # Unless the RunDevServer binary is available, we rebuild the .envrc cache with nix-shell
 # and config cachix for using our binary cache
-command -v RunDevServer >/dev/null 2>&1 \
-    || { echo "PATH_add $(nix-shell -j auto --cores 0 --run 'printf %q $PATH')" > .envrc; }
+command -v RunDevServer >/dev/null 2>&1 ||
+    { echo "PATH_add $(nix-shell -j auto --cores 0 --run 'printf %q $PATH')" >.envrc; }
 
 # Now we have to load the PATH variable from the .envrc cache
 direnv allow
 eval "$(direnv hook bash)"
 eval "$(direnv export bash)"
 
-# You can define custom env vars here:
-# export CUSTOM_ENV_VAR=".."
+# Loads environment variables from the .env file
+set -o allexport
+source .env
+set +o allexport
 
 # Finally start the dev server
 RunDevServer

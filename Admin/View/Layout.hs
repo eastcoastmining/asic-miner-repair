@@ -1,5 +1,7 @@
-module Web.View.Layout (defaultLayout, Html) where
+module Admin.View.Layout (defaultLayout, Html) where
 
+import Admin.Routes
+import Admin.Types
 import Application.Helper.View
 import Generated.Types
 import IHP.Controller.RequestContext
@@ -7,8 +9,6 @@ import IHP.Environment
 import IHP.ViewPrelude
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
-import Web.Routes
-import Web.Types
 
 defaultLayout :: Html -> Html
 defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
@@ -18,10 +18,11 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     {stylesheets}
     {scripts}
 
-    <title>{pageTitleOrDefault "ASIC Repair Resources"}</title>
+    <title>{pageTitleOrDefault "Admin | ASIC Repair Resources"}</title>
 </head>
 <body>
     <div class="container mt-4">
+        {navigation}
         {renderFlashMessages}
         {inner}
     </div>
@@ -65,9 +66,20 @@ metaTags :: Html
 metaTags = [hsx|
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta property="og:title" content="ASIC Repair Resources"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://eastcoastmining.repair"/>
-    <meta property="og:description" content="Cryptocurrency ASIC Miner Repair Resources"/>
     {autoRefreshMeta}
+|]
+
+navigation :: Html
+navigation = [hsx|
+<nav class="navbar navbar-expand navbar-light bg-light mb-2">
+    <a class="navbar-brand" href="/admin/">Admin</a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href={PostsAction}>Posts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href={FilesAction}>Files</a>
+        </li>
+    </ul>
+</nav>
 |]
