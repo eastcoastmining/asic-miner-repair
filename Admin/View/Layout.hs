@@ -82,6 +82,16 @@ navigation = [hsx|
         <li class="nav-item">
             <a class="nav-link" href={FilesAction}>Files</a>
         </li>
+        {userControls}
     </ul>
 </nav>
 |]
+    where
+        userControls =
+            case currentUserOrNothing of
+                Nothing -> mempty
+                Just user -> [hsx|
+                    <li class="nav-item">
+                        <a class="js-delete js-delete-no-confirm nav-link" href={DeleteSessionAction}>Logout</a>
+                    </li>
+                |]

@@ -14,6 +14,14 @@ SET row_security = off;
 
 SET SESSION AUTHORIZATION DEFAULT;
 
+ALTER TABLE public.admins DISABLE TRIGGER ALL;
+
+INSERT INTO public.admins (id, email, password_hash, locked_at, failed_login_attempts) VALUES ('5ba6ece9-7d6f-4866-838c-ebd3ac3bb066', 'admin@eastcoastmining.com', 'sha256|17|SfIGzaxqcNsf6hjhd/vE7Q==|4edbIGB10GtH6gT/MkwXQFtEh3iUwG3vcua7F0KcGf8=', NULL, 0);
+
+
+ALTER TABLE public.admins ENABLE TRIGGER ALL;
+
+
 ALTER TABLE public.files DISABLE TRIGGER ALL;
 
 INSERT INTO public.files (id, url, name, created_at) VALUES ('ccbdb0a4-5a77-4f56-b3e0-7bdbea5f3690', 'https://eastcoastmining-repair.s3.filebase.com/files/2b9ecaaa-ba43-44da-a379-e4c5162268ca', 'antminer-icon-1.png', '2022-04-03 03:31:31.765165-04');
