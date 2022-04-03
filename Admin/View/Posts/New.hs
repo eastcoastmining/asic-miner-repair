@@ -1,13 +1,14 @@
 module Admin.View.Posts.New where
+
 import Admin.View.Prelude
 
-data NewView = NewView { post :: Post }
+data NewView = NewView { post :: Post, allPosts :: [Post] }
 
 instance View NewView where
     html NewView { .. } = [hsx|
         {breadcrumb}
         <h1>New Post</h1>
-        {renderForm post}
+        {renderForm post allPosts}
     |]
         where
             breadcrumb = renderBreadcrumb
@@ -15,12 +16,11 @@ instance View NewView where
                 , breadcrumbText "New Post"
                 ]
 
-renderForm :: Post -> Html
-renderForm post = formFor post [hsx|
+renderForm :: Post -> [Post] -> Html
+renderForm post allPosts = formFor post [hsx|
     {(textField #title)}
-    {(textField #slug)}
-    {(textField #postId)}
-    {(textField #body)}
-    {submitButton}
+    {(selectField #postId (Nothing:(map Just allPosts))) { fieldLabel = "Parent Post" }}
+    {(textareaField #body)}
 
+    {submitButton}
 |]

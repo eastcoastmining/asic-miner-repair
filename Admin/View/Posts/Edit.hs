@@ -1,13 +1,14 @@
 module Admin.View.Posts.Edit where
+
 import Admin.View.Prelude
 
-data EditView = EditView { post :: Post }
+data EditView = EditView { post :: Post, allPosts :: [Post] }
 
 instance View EditView where
     html EditView { .. } = [hsx|
         {breadcrumb}
         <h1>Edit Post</h1>
-        {renderForm post}
+        {renderForm post allPosts}
     |]
         where
             breadcrumb = renderBreadcrumb
@@ -15,12 +16,11 @@ instance View EditView where
                 , breadcrumbText "Edit Post"
                 ]
 
-renderForm :: Post -> Html
-renderForm post = formFor post [hsx|
+renderForm :: Post -> [Post] -> Html
+renderForm post allPosts = formFor post [hsx|
     {(textField #title)}
-    {(textField #slug)}
-    {(textField #postId)}
-    {(textField #body)}
-    {submitButton}
+    {(selectField #postId (Nothing:(map Just allPosts))) { fieldLabel = "Parent Post" }}
+    {(textareaField #body)}
 
+    {submitButton}
 |]
