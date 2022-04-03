@@ -93,6 +93,9 @@ INSERT INTO public.files (id, url, name, created_at) VALUES ('bb20be74-77f4-400f
 INSERT INTO public.files (id, url, name, created_at) VALUES ('54f265b9-c36f-4c01-bbb3-a02268a95554', 'https://asic-miner-repair.s3.filebase.com/files/18233c1c-cb72-48de-90e5-e4b7c7a5afc2', 'A1246-A3201-Plus-P3600W-New-Temp65-21042901-4ec6bb0-cc04190t.aup', '2022-04-03 12:02:58.715891-04');
 INSERT INTO public.files (id, url, name, created_at) VALUES ('9cd84aef-c288-4a15-a138-de5b73da576c', 'https://asic-miner-repair.s3.filebase.com/files/ddc4a026-4697-409b-ab92-e3c7b12a927a', 'cannan-firmware-upgrade.pdf', '2022-04-03 12:03:00.983337-04');
 INSERT INTO public.files (id, url, name, created_at) VALUES ('eee9088f-0233-4dd8-b790-cde6b7e9c1bf', 'https://asic-miner-repair.s3.filebase.com/files/fa29b62f-44ad-49a8-8fee-f585ed1f08fb', 'FMS-V2.3.3.zip', '2022-04-03 12:03:33.969263-04');
+INSERT INTO public.files (id, url, name, created_at) VALUES ('37a5689b-fd83-4293-9d01-d9d4ad5832a9', 'https://asic-miner-repair.s3.filebase.com/files/46caf885-fb06-49e0-a21b-052e6bf38918', 'Antminer-S17-Signals-Test-Points.jpg', '2022-04-03 12:25:14.914738-04');
+INSERT INTO public.files (id, url, name, created_at) VALUES ('bb42372b-8a6a-41f1-96f0-93b5194eec04', 'https://asic-miner-repair.s3.filebase.com/files/0681c18b-bc56-4c60-8038-b7f582214e94', 'dsPIC33EPXXGS202-Family-Data-Sheet.pdf', '2022-04-03 12:26:18.424046-04');
+INSERT INTO public.files (id, url, name, created_at) VALUES ('239dcbb2-c9b4-4995-b05f-9b33627a8943', 'https://asic-miner-repair.s3.filebase.com/files/eee82daa-1717-4cf8-8466-162e45fcb0b1', 'PIC16LF17048DataSheet.pdf', '2022-04-03 12:26:25.167605-04');
 
 
 ALTER TABLE public.files ENABLE TRIGGER ALL;
