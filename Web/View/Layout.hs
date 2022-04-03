@@ -76,7 +76,7 @@ metaTags = [hsx|
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta property="og:title" content="ASIC Repair Resources"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://eastcoastmining.repair"/>
+    <meta property="og:url" content="https://asic-miner.repair"/>
     <meta property="og:description" content="Cryptocurrency ASIC Miner Repair Resources"/>
     {autoRefreshMeta}
 |]
