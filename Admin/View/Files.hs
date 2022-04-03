@@ -36,7 +36,7 @@ renderFile file = [hsx|
 
 renderFileUploadForm :: Html
 renderFileUploadForm = formFor file [hsx|
-    <p>Upload New File(s)</p>
+    <p>Upload New File(s) <small>Uploading May Take A While</small></p>
     <div class="form-group">
         <input type="file" name="files" id="files" class="form-control-file" multiple={True}>
     </div>
