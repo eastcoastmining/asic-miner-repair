@@ -6,15 +6,25 @@ import Admin.View.Posts.Index
 import Admin.View.Posts.New
 import Admin.View.Posts.Show
 import qualified Text.MMark as Markdown
+import Text.Megaparsec (ParseErrorBundle (..))
 
 instance Controller PostsController where
+    beforeAction = do
+        ensureIsAdmin @Admin
+
     action PostsAction = do
-        posts :: [Include "postId" Post] <- query @Post |> fetch >>= collectionFetchRelatedOrNothing #postId
+        posts :: [Include "postId" Post] <- query @Post
+            |> orderBy #slug
+            |> fetch
+            >>= collectionFetchRelatedOrNothing #postId
         render IndexView { .. }
 
     action NewPostAction = do
         let post = newRecord
-        allPosts <- query @Post |> filterWhereNot (#id, get #id post) |> fetch
+        allPosts <- query @Post
+            |> filterWhereNot (#id, get #id post)
+            |> filterWhere (#postId, Nothing)
+            |> fetch
         render NewView { .. }
 
     action ShowPostAction { postId } = do
@@ -30,20 +40,20 @@ instance Controller PostsController where
         post <- fetch postId
         post
             |> buildPost
-            |> ifValid \case
+            >>= ifValid \case
                 Left post -> do
                     allPosts <- query @Post |> filterWhereNot (#id, get #id post) |> fetch
                     render EditView { .. }
                 Right post -> do
                     post <- post |> updateRecord
                     setSuccessMessage "Post updated"
-                    redirectTo EditPostAction { .. }
+                    redirectTo ShowPostAction { .. }
 
     action CreatePostAction = do
         let post = newRecord @Post
         post
             |> buildPost
-            |> ifValid \case
+            >>= ifValid \case
                 Left post -> do
                     allPosts <- query @Post |> filterWhereNot (#id, get #id post) |> fetch
                     render NewView { .. }
@@ -59,11 +69,14 @@ instance Controller PostsController where
         redirectTo PostsAction
 
 buildPost post = post
-    |> fill @["title","slug","postId","body"]
+    |> fill @["title","slug","postId","body","showInNav"]
     |> validateField #title nonEmpty
     |> validateField #body nonEmpty
     |> validateField #body isMarkdown'
-    |> (\post -> post |> set #slug (toSlug $ get #title post))
+    |> (\post -> do
+            newSlug <- createSlug post
+            post |> set #slug newSlug |> pure
+        )
 
 isMarkdown' :: Maybe Text -> ValidatorResult
 isMarkdown' (Just text) = isMarkdown text
@@ -72,5 +85,14 @@ isMarkdown' Nothing     = isMarkdown def
 isMarkdown :: Text -> ValidatorResult
 isMarkdown text =
     case Markdown.parse "" text of
-        Left error  -> Failure ("Please provide valid Markdown, Error: " <> show error)
+        Left error  -> do
+            let markdownError = error |> get #bundleErrors
+            Failure ("Please provide valid Markdown, Error: " <> show markdownError)
         Right _ -> Success
+
+createSlug :: _ => Post -> IO Text
+createSlug post = do
+    parent <- fetchOneOrNothing (get #postId post)
+    let parentTitle = maybe "" (get #title) parent
+    let postTitle = get #title post
+    pure $ toSlug (parentTitle <> " " <> postTitle)

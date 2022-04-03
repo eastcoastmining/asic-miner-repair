@@ -20,7 +20,8 @@ renderForm :: Post -> [Post] -> Html
 renderForm post allPosts = formFor post [hsx|
     {(textField #title)}
     {(selectField #postId (Nothing:(map Just allPosts))) { fieldLabel = "Parent Post" }}
-    {(textareaField #body)}
+    {(textareaField #body) { additionalAttributes = [("rows", "20")] }}
+    {(checkboxField #showInNav) { fieldLabel = "Show In Navigation" }}
 
     {submitButton}
 |]

@@ -3,18 +3,23 @@ module Admin.Controller.Files where
 import Admin.Controller.Prelude
 import Admin.View.Files
 import qualified Control.Exception as Exception
+import qualified Data.Char as Char
+import qualified Data.Text as Text
 import Network.Wai.Parse (FileInfo (..))
 
 instance Controller FilesController where
+    beforeAction = do
+        ensureIsAdmin @Admin
+
     action FilesAction = do
-        files <- query @File |> orderByDesc #createdAt |> fetch
+        files <- query @File |> orderBy #name |> fetch
         render FilesView { .. }
 
     action CreateFileAction = do
         let selectedFiles = filesByName "files"
         let storeFiles :: [IO (Either SomeException File)] =
                 selectedFiles |> map \selectedFile -> do
-                    let fileName :: Text = selectedFile |> get #fileName |> cs
+                    let fileName :: Text = selectedFile |> get #fileName |> cs |> fileNameAsSlug
                     storeFile selectedFile "files"
                         |> Exception.try
                         >>= \case
@@ -41,4 +46,11 @@ instance Controller FilesController where
         redirectTo FilesAction
 
     action DeleteFileAction { .. } = do
-        pure ()
+        file <- fetch fileId
+        deleteRecord file
+        setSuccessMessage "File deleted"
+        redirectTo FilesAction
+
+
+fileNameAsSlug :: Text -> Text
+fileNameAsSlug = Text.map (\c -> if Char.isLetter c || Char.isNumber c || c == '.' then c else '-')

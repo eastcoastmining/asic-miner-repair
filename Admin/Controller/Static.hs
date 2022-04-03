@@ -4,4 +4,5 @@ import Admin.Controller.Prelude
 import Admin.View.Static.Welcome
 
 instance Controller StaticController where
-    action WelcomeAction = render WelcomeView
+    action WelcomeAction = do
+        render WelcomeView

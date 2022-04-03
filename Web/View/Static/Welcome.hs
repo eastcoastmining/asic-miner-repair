@@ -1,42 +1,63 @@
 module Web.View.Static.Welcome where
+
+import Web.Controller.Prelude
 import Web.View.Prelude
 
-data WelcomeView = WelcomeView
+data WelcomeView = WelcomeView { groupedPosts :: [(Post, [Post])] }
 
 instance View WelcomeView where
-    html WelcomeView = [hsx|
-         <div style="background-color: #657b83; padding-top: 2rem; padding-bottom: 2rem; color:hsla(196, 13%, 96%, 1); border-radius: 4px">
-              <div style="max-width: 800px; margin-left: auto; margin-right: auto">
-                  <h1 style="margin-bottom: 2rem; font-size: 2rem; font-weight: 300; border-bottom: 1px solid white; padding-bottom: 0.25rem; border-color: hsla(196, 13%, 60%, 1)">
-                      IHP
-                  </h1>
+    html WelcomeView { .. } = [hsx|
+        <div id="WelcomeView">
+            <h1 class="h1 d-block text-center">ASIC Repair Resources</h1>
 
-                  <h2 style="margin-top: 0; margin-bottom: 0rem; font-weight: 900; font-size: 3rem">
-                      It's working!
-                  </h2>
+            <div id="antminerImage">
+                <img src={FileAction "antminer-icon-1.png"} />
+            </div>
 
-                  <p style="margin-top: 1rem; font-size: 1.75rem; font-weight: 600; color:hsla(196, 13%, 80%, 1)">
-                     Your new application is up and running.
-                  </p>
+            <hr />
 
-                  <p>
-                      <a
-                          href="https://ihp.digitallyinduced.com/Slack"
-                          style="margin-top: 2rem; background-color: #268bd2; padding: 1rem; border-radius: 3px; color: hsla(205, 69%, 98%, 1); text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px hsla(205, 69%, 0%, 0.08); transition: box-shadow 0.2s; transition: transform 0.2s;"
-                          target="_blank"
-                      >Join our community on Slack!</a>
-                  </p>
+            <nav>
+                {renderPostsNavigation groupedPosts}
 
-                  <a href="https://ihp.digitallyinduced.com/Guide/your-first-project.html" style="margin-top: 2rem; background-color: #268bd2; padding: 1rem; border-radius: 3px; color: hsla(205, 69%, 98%, 1); text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px hsla(205, 69%, 0%, 0.08);  transition: box-shadow 0.2s; transition: transform 0.2s;" target="_blank">
-                     Learn the Next Steps in the Documentation
-                  </a>
-              </div>
-         </div>
+                <ul>
+                    <li><a href={ShowPostAction "getting-started"} class="h4">Getting Started</a></li>
+                    <li><a href={ShowPostAction "general-troubleshooting-guide"} class="h4">General Troubleshooting Guide</a></li>
+                    <li><a href={ShowPostAction "testing"} class="h4">Testing Resources</a></li>
+                    <li><a href={ShowPostAction "tools"} class="h4">Tools</a></li>
+                    <li><a href={ShowPostAction "frequently-asked-questions"} class="h4">FAQ</a></li>
+                    <li><a href={ShowPostAction "reference"} class="h4">Reference</a></li>
+                </ul>
+            </nav>
 
-         <div style="max-width: 800px; margin-left: auto; margin-right: auto; margin-top: 4rem">
-              <img src="/ihp-welcome-icon.svg" alt="/ihp-welcome-icon">
-              <p style="color: hsla(196, 13%, 50%, 1); margin-top: 4rem">
-                 You can modify this start page by making changes to "./Web/View/Static/Welcome.hs".
-              </p>
-         </div> 
+            <hr />
+
+            <h3>Looking to get your ASICs repaired?</h3>
+            <ul>
+                <li>
+                    <a href="" class="h5 pr-2" target="_blank">East Coast Mining</a>
+                    <span>Tryon, NC, USA</span>
+                </li>
+            </ul>
+        </div>
+    |]
+
+renderPostsNavigation :: [(Post, [Post])] -> Html
+renderPostsNavigation groupedPosts = [hsx|
+    <ul>
+        {forEach groupedPosts renderParent}
+    </ul>
 |]
+    where
+        renderParent (parent, children) = [hsx|
+            <li>
+                <a href={ShowPostAction $ get #slug parent} class="h4">{get #title parent}</a>
+                <ul>
+                    {forEach children renderChild}
+                </ul>
+            </li>
+        |]
+        renderChild post = [hsx|
+            <li>
+                <a href={ShowPostAction $ get #slug post} class="h4">{get #title post}</a>
+            </li>
+        |]

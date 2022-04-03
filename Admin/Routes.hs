@@ -8,3 +8,4 @@ import IHP.RouterPrelude
 instance AutoRoute StaticController
 instance AutoRoute FilesController
 instance AutoRoute PostsController
+instance AutoRoute SessionsController

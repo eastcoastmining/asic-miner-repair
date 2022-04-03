@@ -38,6 +38,8 @@ stylesheets = [hsx|
     <link rel="stylesheet" href={assetPath "/vendor/bootstrap.min.css"}/>
     <link rel="stylesheet" href={assetPath "/vendor/flatpickr.min.css"}/>
     <link rel="stylesheet" href={assetPath "/app.css"}/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-light.min.css"/>
 |]
 
 scripts :: Html
@@ -71,7 +73,7 @@ metaTags = [hsx|
 
 navigation :: Html
 navigation = [hsx|
-<nav class="navbar navbar-expand navbar-light bg-light mb-2">
+<nav class="navbar navbar-expand mb-2">
     <a class="navbar-brand" href="/admin/">Admin</a>
     <ul class="navbar-nav">
         <li class="nav-item">

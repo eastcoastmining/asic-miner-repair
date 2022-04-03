@@ -14,17 +14,17 @@ defaultLayout :: Html -> Html
 defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 <head>
     {metaTags}
-
+    {fonts}
     {stylesheets}
     {scripts}
 
     <title>{pageTitleOrDefault "ASIC Repair Resources"}</title>
 </head>
 <body>
-    <div class="container mt-4">
+    <main class="container">
         {renderFlashMessages}
         {inner}
-    </div>
+    </main>
 </body>
 |]
 
@@ -37,6 +37,15 @@ stylesheets = [hsx|
     <link rel="stylesheet" href={assetPath "/vendor/bootstrap.min.css"}/>
     <link rel="stylesheet" href={assetPath "/vendor/flatpickr.min.css"}/>
     <link rel="stylesheet" href={assetPath "/app.css"}/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-light.min.css"/>
+|]
+
+fonts :: Html
+fonts = [hsx|
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
 |]
 
 scripts :: Html

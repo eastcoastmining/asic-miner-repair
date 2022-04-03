@@ -1,10 +1,20 @@
 -- Your database schema. Use the Schema Designer at http://localhost:8001/ to add some tables.
+CREATE TABLE admins (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    email TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    failed_login_attempts INT DEFAULT 0 NOT NULL
+);
 CREATE TABLE posts (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
-    title TEXT NOT NULL,
-    slug TEXT NOT NULL,
+    title TEXT NOT NULL UNIQUE,
+    slug TEXT NOT NULL UNIQUE,
     post_id UUID DEFAULT NULL,
-    body TEXT DEFAULT NULL
+    body TEXT DEFAULT NULL,
+    show_in_nav BOOLEAN DEFAULT false NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
 );
 CREATE TABLE files (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,

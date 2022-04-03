@@ -11,3 +11,11 @@ data WebApplication
 data StaticController
     = WelcomeAction
     deriving (Eq, Show, Data)
+
+data PostsController
+    = ShowPostAction { slug :: !Text }
+    deriving (Eq, Show, Data)
+
+data FilesController
+    = FileAction { fileName :: !Text }
+    deriving (Eq, Show, Data)

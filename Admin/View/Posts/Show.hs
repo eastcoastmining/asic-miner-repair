@@ -7,12 +7,15 @@ data ShowView = ShowView { post :: Post }
 instance View ShowView where
     html ShowView { .. } = [hsx|
         {breadcrumb}
-        <h1>{get #title post}</h1>
-        <p>{markdown}</p>
+
+        <article class="markdown-body">
+            {markdown}
+        </article>
     |]
         where
             markdown = renderMarkdown $ inputValue $ get #body post
             breadcrumb = renderBreadcrumb
                 [ breadcrumbLink "Posts" PostsAction
                 , breadcrumbText (get #title post |> cs)
+                , breadcrumbLink "Edit" (EditPostAction (get #id post))
                 ]
