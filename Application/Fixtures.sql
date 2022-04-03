@@ -389,12 +389,6 @@ INSERT INTO public.posts (id, title, slug, post_id, body, show_in_nav, created_a
 
 - [Reference](/file/Bitmain-Antminer-S19-Diode-Voltage-Values.pdf)
 ', true, '2022-04-03 09:56:29.512841-04', '2022-04-03 09:56:29.512841-04');
-INSERT INTO public.posts (id, title, slug, post_id, body, show_in_nav, created_at, updated_at) VALUES ('1e688d8e-9855-4349-a01e-adb77e0b005f', 'Antminer S19 Pro', 'bitmain-antminer-s19-pro', '08e67f19-0bce-4e5c-927a-f4cd434f06eb', '# Antminer S19 Pro
-
-## Repair Guides
-
-- [Repair Guide](/freq/Bitmain-Antminer-S19pro-Repair-Guide.pdf)
-', true, '2022-04-03 09:57:43.404991-04', '2022-04-03 09:57:43.404991-04');
 INSERT INTO public.posts (id, title, slug, post_id, body, show_in_nav, created_at, updated_at) VALUES ('641d37db-72ef-4688-b7db-8f37ae820c05', 'Antminer Z11', 'bitmain-antminer-z11', '08e67f19-0bce-4e5c-927a-f4cd434f06eb', '# Antminer Z11
 
 ## Overview
@@ -466,6 +460,12 @@ Insert the flashed MicroSD card, turn on the power, wait for about 30 seconds, o
 ![Bitmain Antminer L3 Plus Overview 6](/file/Bitmain-Antminer-L3Plus-Overview-6.jpg)
 ![Bitmain Antminer L3 Plus Overview 7](/file/Bitmain-Antminer-L3Plus-Overview-7.jpg)
 ', true, '2022-04-03 09:15:00.010916-04', '2022-04-03 09:15:00.010916-04');
+INSERT INTO public.posts (id, title, slug, post_id, body, show_in_nav, created_at, updated_at) VALUES ('1e688d8e-9855-4349-a01e-adb77e0b005f', 'Antminer S19 Pro', 'bitmain-antminer-s19-pro', '08e67f19-0bce-4e5c-927a-f4cd434f06eb', '# Antminer S19 Pro
+
+## Repair Guides
+
+- [Repair Guide](/file/Bitmain-Antminer-S19pro-Repair-Guide.pdf)
+', true, '2022-04-03 09:57:43.404991-04', '2022-04-03 09:57:43.404991-04');
 
 
 ALTER TABLE public.posts ENABLE TRIGGER ALL;
