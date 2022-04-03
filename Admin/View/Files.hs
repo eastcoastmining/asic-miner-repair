@@ -41,7 +41,7 @@ renderFileUploadForm = formFor file [hsx|
         <input type="file" name="files" id="files" class="form-control-file" multiple={True}>
     </div>
 
-    <button class="btn btn-light">Upload</button>
+    <button class="btn btn-primary">Upload</button>
 |]
     where
         file = newRecord @File
