@@ -35,34 +35,33 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 stylesheets :: Html
 stylesheets = [hsx|
     <link rel="stylesheet" href={assetPath "/vendor/bootstrap.min.css"}/>
-    <link rel="stylesheet" href={assetPath "/vendor/flatpickr.min.css"}/>
-    <link rel="stylesheet" href={assetPath "/app.css"}/>
-
+    <!-- <link rel="stylesheet" href={assetPath "/vendor/flatpickr.min.css"}/> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown-light.min.css"/>
+    <link rel="stylesheet" href={assetPath "/app.css"}/>
 |]
 
 fonts :: Html
 fonts = [hsx|
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700&display=swap" rel="stylesheet">
 |]
 
 scripts :: Html
 scripts = [hsx|
     {when isDevelopment devScripts}
     <script src={assetPath "/vendor/jquery-3.6.0.slim.min.js"}></script>
-    <script src={assetPath "/vendor/timeago.js"}></script>
-    <script src={assetPath "/vendor/popper.min.js"}></script>
+    <!-- <script src={assetPath "/vendor/timeago.js"}></script> -->
+    <!-- <script src={assetPath "/vendor/popper.min.js"}></script> -->
     <script src={assetPath "/vendor/bootstrap.min.js"}></script>
-    <script src={assetPath "/vendor/flatpickr.js"}></script>
+    <!-- <script src={assetPath "/vendor/flatpickr.js"}></script> -->
     <script src={assetPath "/vendor/morphdom-umd.min.js"}></script>
     <script src={assetPath "/vendor/turbolinks.js"}></script>
     <script src={assetPath "/vendor/turbolinksInstantClick.js"}></script>
     <script src={assetPath "/vendor/turbolinksMorphdom.js"}></script>
     <script src={assetPath "/helpers.js"}></script>
-    <script src={assetPath "/ihp-auto-refresh.js"}></script>
-    <script src={assetPath "/app.js"}></script>
+    <!-- <script src={assetPath "/ihp-auto-refresh.js"}></script> -->
+    <!-- <script src={assetPath "/app.js"}></script> -->
 |]
 
 devScripts :: Html
