@@ -5,6 +5,8 @@ import Web.View.Prelude
 data ShowView = ShowView { post :: Post, groupedPosts :: [(Post, [Post])] }
 
 instance View ShowView where
+    beforeRender ShowView { .. } = do
+        setTitle (get #title post <> " | " <> "ASIC Repair Resources")
     html ShowView { .. } = [hsx|
         {renderPostsNavigation groupedPosts}
 
