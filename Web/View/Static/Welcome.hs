@@ -34,7 +34,7 @@ instance View WelcomeView where
             <h3>Looking to get your ASICs repaired?</h3>
             <ul>
                 <li>
-                    <a href="" class="h5 pr-2" target="_blank">East Coast Mining</a>
+                    <a href="https://eastcoastmining.com/" class="h5 pr-2" target="_blank">East Coast Mining</a>
                     <span>Tryon, NC, USA</span>
                 </li>
             </ul>
